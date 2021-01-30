@@ -23,7 +23,7 @@ function loadStock(e){
     console.log('This is the model type '+ modelType);
     
     $.ajax({
-    url: window.location.origin+ "/stockapp/getStock",
+    url: window.location.origin+ "/getStock",
     type: "GET",
     data: {
         'stockName': $('#stockInput').val(),
@@ -44,7 +44,7 @@ function loadStock(e){
             $('#stockShortName').text('Stock Short Name: '+stockShortName);
             //Do get request to get the data for the plot
             $.ajax({
-                url: window.location.origin+"/stockapp/trainModel",
+                url: window.location.origin+"/trainModel",
                 type: "GET",
                 data: {
                     'stockName': $('#stockInput').val(),

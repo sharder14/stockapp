@@ -8,12 +8,12 @@ import model
 
 app = Flask(__name__)
 
-@app.route('/stockapp/', methods=['GET','POST'])
+@app.route('/', methods=['GET','POST'])
 def homepage(): 
     return render_template('stockapp/app.html')
 
 
-@app.route('/stockapp/getStock',methods=['GET','POST'])
+@app.route('/getStock',methods=['GET','POST'])
 def getStock():
     content={}
     if(request.method=="GET"):
@@ -32,7 +32,7 @@ def getStock():
     return jsonify(content)
 
 
-@app.route('/stockapp/trainModel', methods=['GET','POST'])
+@app.route('/trainModel', methods=['GET','POST'])
 def trainModel():
     #Get data from the Get request...
     # Then train model for the specific stock...
@@ -59,5 +59,5 @@ def trainModel():
 
 
 if __name__=="__main__":
-    #app.run(host='0.0.0.0',port=80)
-    app.run()
+    app.run(host='0.0.0.0',port=80)
+    #app.run()
