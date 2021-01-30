@@ -1,0 +1,4 @@
+env
+.vscode
+*.pyc
+stockapp/__pycache__

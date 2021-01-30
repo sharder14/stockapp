@@ -1,0 +1,52 @@
+{% extends 'stockapp/index.html'%}
+
+{% block content %}
+   
+<div id='appDiv' class="appDiv">
+
+    <h1>
+        Stock Prediction App 
+    </h1>
+
+<div class='inputDiv' id="dataInputDiv">
+
+    <h2>
+        Select Stonks:
+    </h2>
+    <form class="stockLoader" name="stockLoader" id="stockLoader" enctype="multipart/form-data">
+        <label for="stock">Enter stonk name:</label>
+        <input type="text" id="stockInput" name="stockInput">
+        <!-- <button id="uploadStockBtn" type="button" onclick="return loadStock(event)">Predict</button> -->
+    </form>
+
+    <form>
+        <select name="modelType" id="modelType">
+            <option value="LSTM" selected>LSTM</option>
+            <option value="GRU">GRU</option>
+        </select>
+        <button id="uploadStockBtn" type="button" onclick="return loadStock(event)">Predict</button>
+        <!-- <br><br> -->
+    </form>
+      <!--<progress></progress>-->
+
+  </div>
+
+  <div id='loadingDiv' class='inputDiv'>
+    <h3 id='modelTraining'>Model Training</h3>
+    <h3 id='stockShortName'>Stock Short Name:</h3>
+  </div>
+
+  <br>
+  <div class='loadingWheel' id='loadingWheel'>
+      </div>
+
+<div id='resultDiv' class='inputDiv'>
+  <h2>
+    Result:
+</h2>
+<div id="plot"></div>
+</div>
+
+</div>
+
+{% endblock %}
