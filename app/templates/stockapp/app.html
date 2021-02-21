@@ -24,7 +24,8 @@
             <option value="LSTM" selected>LSTM</option>
             <option value="GRU">GRU</option>
         </select>
-        <button id="uploadStockBtn" type="button" onclick="return loadStock(event)">Predict</button>
+        <button id="uploadStockBtn" type="button" onclick="return loadStock(event)">Predict with Python/Server Side</button>
+        <button id="uploadStockBtn2" type="button" onclick="return loadStock2(event)">Predict with JavaScript/Client Side</button>
         <!-- <br><br> -->
     </form>
       <!--<progress></progress>-->
@@ -44,8 +45,13 @@
   <h2>
     Result:
 </h2>
+
+
 <div id="plot"></div>
 </div>
+
+
+
 
 </div>
 

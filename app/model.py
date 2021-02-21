@@ -35,13 +35,13 @@ def confirmStock(stockName):
     stock=yf.Ticker(stockName)
     #returnName='burgers'
     #returnName=np.nan
-    testthis=False
+    #testthis=False
     try:
         returnName=stock.info['shortName']
-        testthis=True
+        #testthis=True
     except:
         returnName=np.nan
-    return [returnName,testthis]
+    return returnName
 
 
 def get_stock_history(ticker,history='max'):
@@ -262,8 +262,42 @@ def plotThis(trainX,trainY,testX,testY,actualX,actualY,modelType="LSTM"):
 
 
 
+#Function to get the data for a given stock name...
+def getStockData(stockName):
+    #stockName='bnoadskfa0'
+    history='5y'
+    lookback=20
 
+    ssName=confirmStock(stockName)
+    if(pd.isnull(ssName)):
+        return [np.nan,False]
+    else:        
+        data = yf.Ticker(stockName).history(period=history)
+        data = data.reset_index()
+        for i in ['Open', 'High', 'Close', 'Low']:
+            data[i]  =  data[i].astype('float64')
+        data
 
+        #Only going to predict close date for next day based on a lookback period
+        scaler = MinMaxScaler(feature_range=(-1, 1))
+        data['yData']=scaler.fit_transform(data['Close'].values.reshape(-1,1)).reshape(-1)
 
-# Example to run 
-#data = main("BTC-USD")
+        #For each variable get X data which will be that and the past 20 datapoints...
+        xData=[]
+        for i in range(0,len(data)):
+            tdata=data['yData'][i-lookback:i].values
+            if(len(tdata)<lookback):
+                tdata=np.nan
+            xData.append(tdata)
+        data['xData']=xData
+        data['Date']=data['Date'].dt.date.astype(str)
+        #data
+        print(data.columns)
+        ymin=data['Close'].min()
+        ymax=data['Close'].max()
+
+        #Can only predict where lookback is possible...
+        data2=data[data['xData'].notnull()]
+        data2=data2.reset_index()
+        #return [ssName,data2.to_dict(orient='values')]
+        return [ssName,data2.to_json(),ymin,ymax]
